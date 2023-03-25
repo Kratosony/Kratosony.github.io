@@ -1,19 +1,7 @@
 import React, { useState } from "react";
-import TodoList from "./TodoList";
-import retrieveQuestions from "./helpers/questions";
 
-function App() {
-  const [details, setDetails] = useState({ name: "", pronouns: "" });
+function PersonalDetails({ name, setName }) {
   const [inputValue, setInputValue] = useState("");
-  const [selectedMenu, setSelectedMenu] = useState("communication");
-
-  const handleMenuChange = (event) => {
-    setSelectedMenu(event.target.value);
-  };
-
-  const handlePronounSelection = (event) => {
-    setDetails({ pronouns: event.target.value });
-  };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -21,29 +9,25 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target.value);
-    setDetails({ name: event.target.value });
+    setName(inputValue);
   };
 
-  const menuItems = [
-    { label: "Communication", value: "communication" },
-    { label: "Section 2", value: "section2" },
-    { label: "Section 3", value: "section3" },
-  ];
-  const pronouns = [
-    { label: "He/Him", value: "m" },
-    { label: "She/Her", value: "f" },
-    { label: "They/Them", value: "alt" },
-  ];
-
-  const validTypes = menuItems.map((item) => item.value);
-
   const showDetails = () => {
-    console.log(details);
     return (
-      <p className="subtitle">
-        {details.name} Pronouns: {details.pronouns}
-      </p>
+      <div className="media">
+        <div className="media-left">
+          <figure className="image is-48x48">
+            <img
+              className="is-rounded"
+              src="https://ih1.redbubble.net/image.3106241675.1932/st,small,845x845-pad,1000x1000,f8f8f8.jpg"
+              alt="Placeholder image"
+            />
+          </figure>
+        </div>
+        <div className="media-content">
+          <p className="subtitle">{name}</p>
+        </div>
+      </div>
     );
   };
 
@@ -60,25 +44,8 @@ function App() {
               onChange={handleInputChange}
             />
           </div>
-          <div className="field">
-            <label className="label">Select a menu item:</label>
-            <div className="control">
-              <div className="select">
-                <select
-                  value={details.pronouns}
-                  onChange={handlePronounSelection}
-                >
-                  {pronouns.map((item) => (
-                    <option key={item.value} value={item.value}>
-                      {item.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
           <div className="control">
-            <button className="button is-primary">Add</button>
+            <button className="button is-primary">Set Name</button>
           </div>
         </div>
       </form>
@@ -86,39 +53,13 @@ function App() {
   };
 
   const renderSubtitle = () => {
-    if (details.name === "" && details.pronouns === "") {
+    if (name === null) {
       return inputDetails();
     }
     return showDetails();
   };
 
-  return (
-    <>
-      <section className="hero is-primary">
-        <div className="hero-body">
-          <p className="title">Questionnaire Helper</p>
-          {renderSubtitle()}
-        </div>
-      </section>
-      <div className="container">
-        <div className="field">
-          <label className="label">Select a menu item:</label>
-          <div className="control">
-            <div className="select">
-              <select value={selectedMenu} onChange={handleMenuChange}>
-                {menuItems.map((item) => (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-        {validTypes.includes(selectedMenu) && <TodoList type={selectedMenu} />}
-      </div>
-    </>
-  );
+  return renderSubtitle();
 }
 
-export default App;
+export default PersonalDetails;

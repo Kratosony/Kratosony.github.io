@@ -1,50 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 
-function PersonalDetails({ name, setName }) {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+function PronounSelector({ preferredPronoun, setPreferredPronoun }) {
+  const handlePronounChange = (event) => {
+    setPreferredPronoun(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setName(inputValue);
-  };
-
-  const showDetails = () => {
-    return <p className="subtitle">{name}</p>;
-  };
-
-  const inputDetails = () => {
-    return (
-      <form onSubmit={handleSubmit}>
-        <div className="field is-grouped">
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              placeholder="Name & Surname"
-              value={inputValue}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="control">
-            <button className="button is-primary">Set Name</button>
-          </div>
-        </div>
-      </form>
-    );
-  };
-
-  const renderSubtitle = () => {
-    if (name === null) {
-      return inputDetails();
-    }
-    return showDetails();
-  };
-
-  return renderSubtitle();
+  return (
+    <div className="field">
+      <label className="label">Preferred Pronoun:</label>
+      <div className="control">
+        <label className="radio">
+          <input
+            type="radio"
+            name="pronoun"
+            value="he"
+            checked={preferredPronoun === "he"}
+            onChange={handlePronounChange}
+          />
+          <span>He/Him</span>
+        </label>
+        <label className="radio">
+          <input
+            type="radio"
+            name="pronoun"
+            value="she"
+            checked={preferredPronoun === "she"}
+            onChange={handlePronounChange}
+          />
+          <span>She/Her</span>
+        </label>
+        <label className="radio">
+          <input
+            type="radio"
+            name="pronoun"
+            value="they"
+            checked={preferredPronoun === "they"}
+            onChange={handlePronounChange}
+          />
+          <span>They/Them</span>
+        </label>
+      </div>
+    </div>
+  );
 }
 
-export default PersonalDetails;
+export default PronounSelector;
