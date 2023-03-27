@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "bulma/css/bulma.min.css";
 import retrieveQuestions from "./helpers/questions";
-import getAnswer from "./helpers/answers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import convertPronouns from "./helpers/pronounHelper";
@@ -70,12 +69,6 @@ function TodoList({ type, preferredPronoun }) {
               <th>{index + 1}</th>
               <td>{retrieveQuestions(type, index)}</td>
               <td>{item}</td>
-              <td>
-                {convertPronouns(
-                  getAnswer(type, index, item),
-                  preferredPronoun
-                )}
-              </td>
               <td>
                 {" "}
                 <button

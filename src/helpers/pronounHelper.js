@@ -12,15 +12,9 @@ export default function convertPronouns(text, preferredPronoun) {
       possessiveAdjective: "her",
       reflexive: "herself",
     },
-    they: {
-      subjective: "they",
-      objective: "them",
-      possessiveAdjective: "their",
-      reflexive: "themself",
-    },
   };
 
-  const pronouns = pronounMap[preferredPronoun] || pronounMap["they"];
+  const pronouns = pronounMap[preferredPronoun];
 
   return text
     .replace(/\bhe\b/gi, pronouns["subjective"])

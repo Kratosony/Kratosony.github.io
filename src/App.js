@@ -2,22 +2,11 @@ import React, { useState } from "react";
 import TodoList from "./TodoList";
 import PersonalDetails from "./PersonalDetails";
 import PronounSelector from "./PronounSelector";
+import QuestionTable from "./QuestionTable";
 
 function App() {
-  const [selectedMenu, setSelectedMenu] = useState("communication");
   const [preferredPronoun, setPreferredPronoun] = useState("he");
   const [name, setName] = useState(null);
-
-  const handleMenuChange = (event) => {
-    setSelectedMenu(event.target.value);
-  };
-  const menuItems = [
-    { label: "Communication", value: "communication" },
-    { label: "Section 2", value: "section2" },
-    { label: "Section 3", value: "section3" },
-  ];
-
-  const validTypes = menuItems.map((item) => item.value);
 
   return (
     <>
@@ -32,26 +21,13 @@ function App() {
         </div>
       </section>
       <div className="container">
-        <div className="field">
-          <label className="label">Select a menu item:</label>
-          <div className="control">
-            <div className="select">
-              <select value={selectedMenu} onChange={handleMenuChange}>
-                {menuItems.map((item) => (
-                  <option key={item.value} value={item.value}>
-                    {item.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-        {validTypes.includes(selectedMenu) && (
-          <TodoList type={selectedMenu} preferredPronoun={preferredPronoun} />
-        )}
+        <QuestionTable preferredPronoun={preferredPronoun} />
       </div>
     </>
   );
 }
 
 export default App;
+
+// ask for Array of each section of the questionnaire, anything answered as 1 or 2, needs to be converted to an objective.
+// Anything marked as 3 simply needs to be converted to the proper pronoun.
